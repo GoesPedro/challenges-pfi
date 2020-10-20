@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Encontre o Maior Número</title>
+</head>
+<body>
+    <h1>Encontre o Maior Número</h1>
+
+    <script>
+        let conjunto = [];
+        let num1 = parseInt(prompt('Digite o primeiro número:'));
+        let num2 = parseInt(prompt('Digite o segundo número:'));
+        
+        conjunto.push(num1, num2);
+        
+        document.write(`O maior entre ${num1} e ${num2} é o ${conjunto.sort().reverse()[0]}.`);
+    </script>
+</body>
+</html>

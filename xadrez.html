@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio do Xadrez</title>
+</head>
+
+<body>
+    <h1>Desafio do Xadrez</h1>
+
+    <script>
+        let peao = 0;
+        let bispo = 0;
+        let cavalo = 0;
+        let torre = 0;
+        let rainha = 0;
+        let rei = 0;
+
+        let tabuleiro = [
+            [4, 3, 2, 5, 6, 2, 3, 4],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [4, 3, 2, 5, 6, 2, 3, 4]
+        ];
+
+        tabuleiro.forEach(linha => {
+            let filtro1 = linha.filter(peca => peca === 1);
+            peao += filtro1.length;
+
+            let filtro2 = linha.filter(peca => peca === 2);
+            bispo += filtro2.length;
+
+            let filtro3 = linha.filter(peca => peca === 3);
+            cavalo += filtro3.length;
+
+            let filtro4 = linha.filter(peca => peca === 4);
+            torre += filtro4.length;
+
+            let filtro5 = linha.filter(peca => peca === 5);
+            rainha += filtro5.length;
+
+            let filtro6 = linha.filter(peca => peca === 6);
+            rei += filtro6.length;
+
+            linha.forEach(elemento => {
+                document.write(`${elemento} `)
+            });
+
+            document.write('<br>');
+        });
+
+        document.write(`<hr>
+        Peão: ${peao} peças;<br>
+        Bispo: ${bispo} peças;<br>
+        Cavalo: ${cavalo} peças;<br>
+        Torre: ${torre} peças;<br>
+        Rainha: ${rainha} peças;<br>
+        Rei: ${rei} peças.
+        `);
+    </script>
+</body>
+
+</html>
