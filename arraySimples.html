@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Desafio do Array Simples</title>
+    <style>
+        .delete, .edit, .add{
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>Cotações</h1>
+        </header>
+
+        <ul class="list">
+            <!-- cotações aqui -->
+        </ul>
+
+        <form class="add">
+            <input type="text" name="add" />
+            <input type="submit" value="Adicionar Cotação" class="add" />
+        </form>
+
+    </div>
+
+    <script>
+        const addForm = document.querySelector('.add');
+        const list = document.querySelector('.list');
+
+        const generateTemplate = item => {
+            const html = `
+            <li>
+            <span>${item}</span><br>
+            <a class="edit">Editar</a> <a class="delete">Remover</a><hr>
+            </li>
+            `;
+            list.innerHTML += html;
+
+            let edit = document.querySelector('.edit');
+
+            edit.addEventListener('click', e => {
+            if (e.target.classList.contains('edit')) {
+                let newTitle = prompt('Digite o novo nome:');
+                e.target.previousElementSibling.previousElementSibling.innerHTML = `${newTitle}`;
+            }
+        });
+        };
+
+        addForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const item = addForm.add.value.trim();
+            if (item.length) {
+                generateTemplate(item);
+                addForm.reset();
+            }
+        });
+
+        list.addEventListener('click', e => {
+            if (e.target.classList.contains('delete')) {
+                e.target.parentElement.remove();
+            }
+        });
+
+    </script>
+</body>
+
+</html>
