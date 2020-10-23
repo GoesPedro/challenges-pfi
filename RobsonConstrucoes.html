@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Desafio Robson Construções</title>
+</head>
+
+<body>
+    <h1>Robson Construções</h1>
+    <h2>Lista de Cargos</h2>
+    <ul class="listCargos">
+        <!-- salários dos cargos aqui -->
+        <p>Cadastre um cargo e clique em Listar Cargos.</p>
+    </ul>
+    <form>
+        <!-- funcionalidade 1 -->
+        <input type="submit" class="addCargo" value="Cadastrar Cargo">
+        <input type="submit" class="list cargos" name="list" value="Listar Cargos">
+    </form>
+
+    <h2>Lista de Funcionários</h2>
+    <ul class="listFuncionarios">
+        <!-- dados dos funcionários aqui -->
+        <p>Cadastre um funcionário e clique em Listar Funcionários.</p>
+    </ul>
+    <form>
+        <!-- funcionalidade 2 -->
+        <input type="submit" class="addNome" value="Cadastrar Funcionário">
+        <!-- funcionalidade 3 -->
+        <input type="submit" class="list funcionarios" value="Listar Funcionários">
+    </form>
+
+    <h2>Total de Salário por Cargo</h2>
+    <p class="filtro">
+        <!-- resultado filtrado aqui -->
+        Nenhum filtro aplicado ainda.
+    </p>
+    <form>
+        <!-- funcionalidade 4 -->
+        <input type="submit" class="filtrar" value="Inserir Código">
+    </form>
+
+    <script>
+
+        let cargos = [];
+        let nomes = [];
+        let codigos = [];
+        let funcionarios = [];
+        let newCodigo;
+        let cargo;
+        let soma = 0;
+
+        const listarCargos = () => {
+            if (cargos.length > 0) {
+                let listaC = document.querySelector('.listCargos');
+                listaC.innerHTML = '';
+
+                cargos.forEach(cargo => {
+                    listaC.innerHTML += `<li>${cargos.indexOf(cargo)}. R$ ${cargo}</li>`;
+                });
+            };
+        };
+
+        const listarFunc = () => {
+            if (funcionarios.length > 0) {
+                let listaF = document.querySelector('.listFuncionarios');
+                listaF.innerHTML = '';
+
+                funcionarios.forEach(func => {
+                    listaF.innerHTML += `
+                    <li>
+                        ${funcionarios.indexOf(func)}. Código: ${func[0]}; Nome: ${func[1]}; Cargo: ${func[2]}; 
+                    </li>
+                    `
+                });
+            };
+        };
+
+        document.querySelector('.addCargo').addEventListener('click', e => {
+            e.preventDefault();
+            let newCargo = Number(prompt('Digite o valor do salário do novo cargo:'));
+            cargos.push(newCargo);
+        });
+
+        document.querySelector('.list.cargos').addEventListener('click', e => {
+            e.preventDefault();
+            listarCargos();
+        });
+
+        document.querySelector('.addNome').addEventListener('click', e => {
+            e.preventDefault();
+            let newNome = prompt('Digite o nome do funcionário:');
+            do {
+                newCodigo = parseInt(prompt('Digite o código do funcionário:'));
+                if (codigos.includes(newCodigo) || newCodigo < 0) {
+                    alert('Este código de funcionário já existe ou é inválido!');
+                };
+            } while (codigos.includes(newCodigo) || newCodigo < 0);
+            do {
+                cargo = parseInt(prompt('Digite o código de cargo do funcionário:'));
+                if (cargos.length < cargo + 1 || cargo < 0 || isNaN(cargo)) {
+                    alert('Código de cargo inválido!');
+                };
+            } while (cargos.length < cargo + 1 || cargo < 0 || isNaN(cargo));
+
+            nomes.push(newNome);
+            codigos.push(newCodigo);
+            funcionarios.push([newCodigo, newNome, cargo]);
+        });
+
+        document.querySelector('.list.funcionarios').addEventListener('click', e => {
+            e.preventDefault();
+            listarFunc();
+        });
+
+        document.querySelector('.filtrar').addEventListener('click', e => {
+            e.preventDefault();
+            let filtro = document.querySelector('.filtro');
+            do {
+                cargo = parseInt(prompt('Digite o código de cargo para aplicar o filtro:'));
+                if (cargos.length < cargo + 1 || cargo < 0) {
+                    alert('Código de cargo inválido!');
+                };
+            } while (cargos.length < cargo + 1 || cargo < 0);
+
+            funcionarios.forEach(func => {
+                if (func[2] === cargo) {
+                    soma++;
+                };
+            });
+            
+            if (soma === 0) {
+                filtro.innerHTML = 'Não há funcionários cadastrados com este cargo.';
+            } else if (soma >= 0) {
+                let total = soma * cargos[cargo];
+                filtro.innerHTML = `Total pago a funcionários de cargo ${cargo}: R$ ${total}.`;
+                soma = 0;
+            };
+        });
+
+    </script>
+
+</body>
+
+</html>
